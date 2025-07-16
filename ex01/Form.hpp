@@ -6,7 +6,7 @@
 /*   By: hdelbecq <hdelbecq@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 16:32:26 by hdelbecq          #+#    #+#             */
-/*   Updated: 2025/07/16 21:45:50 by hdelbecq         ###   ########.fr       */
+/*   Updated: 2025/07/16 22:28:03 by hdelbecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define FORM_HPP
 
 #include <iostream>
+#include "Bureaucrat.hpp"
 
 class Form
 {
@@ -32,6 +33,8 @@ class Form
 		int get_Grade() const;
 		int get_Grade_Sign() const;
 		int get_Grade_Execute() const;
+
+		void be_signed(const Bureaucrat &bureaucrat);
 		
 		friend std::ostream &operator<<(std::ostream &os, const Form &Form);
 
@@ -46,9 +49,7 @@ class Form
 			public:
 				const char* what();
 		};
-
-		
-		
+	
 };
 
 

@@ -6,7 +6,7 @@
 /*   By: hdelbecq <hdelbecq@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 16:33:00 by hdelbecq          #+#    #+#             */
-/*   Updated: 2025/07/16 21:19:24 by hdelbecq         ###   ########.fr       */
+/*   Updated: 2025/07/16 22:25:58 by hdelbecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,13 @@ Bureaucrat::Bureaucrat()
 {
 }
 
-Bureaucrat::Bureaucrat(std::string name)
-    : name(name), grade(150)
+Bureaucrat::Bureaucrat(std::string name, int grade)
+    : name(name), grade(grade)
 {
+    if (grade < 1)
+        throw GradeTooHighException();
+    else if (grade > 150)
+        throw GradeTooLowException();
 }
 
 Bureaucrat::~Bureaucrat()

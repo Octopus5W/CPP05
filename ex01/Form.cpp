@@ -55,22 +55,30 @@ int Form::get_Grade_Execute() const
 
 const char* Form::GradeTooHighException::what()
 {
-    return "Exception : Grade out of range";
+    return "Exception : Grade too high";
 }
 
 const char* Form::GradeTooLowException::what()
 {
-    return "Exception : Grade out of range";
+    return "Exception : Grade too low";
 }
 
 std::ostream &operator<<(std::ostream &os, const Form &Form)
 {
     os << Form.get_Name() << ", Form grade to execute " 
-        << Form.get_Grade_Execute() << ", Form grade to sign " 
-        << Form.get_Grade_Sign() 
-        << (Form.get_Grade_Sign() == 1 ?  ". Signed" : ". Not Signed") 
-        << std::endl;
+    << Form.get_Grade_Execute() << ", Form grade to sign " 
+    << Form.get_Grade_Sign() 
+    << (Form.get_Grade_Sign() == 1 ?  ". Signed" : ". Not Signed") 
+    << std::endl;
     return os;
+}
+
+void Form::be_signed(const Bureaucrat &bureaucrat)
+{
+    if (bureaucrat.get_Grade() > grade_sign)
+        throw GradeTooLowException();
+    std::cout << bureaucrat.get_Name() << " signs " << name << std::endl;
+    is_signed = true;
 }
 
 
