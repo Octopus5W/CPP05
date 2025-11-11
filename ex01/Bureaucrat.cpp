@@ -6,7 +6,7 @@
 /*   By: hdelbecq <hdelbecq@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 16:33:00 by hdelbecq          #+#    #+#             */
-/*   Updated: 2025/07/16 22:25:58 by hdelbecq         ###   ########.fr       */
+/*   Updated: 2025/11/11 13:38:01 by hdelbecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,12 @@ void Bureaucrat::decrement_Grade()
         grade++;
 }
 
-const char* Bureaucrat::GradeTooHighException::what()
+const char* Bureaucrat::GradeTooHighException::what() const throw()
 {
     return "Exception : Grade out of range";
 }
 
-const char* Bureaucrat::GradeTooLowException::what()
+const char* Bureaucrat::GradeTooLowException::what() const throw()
 {
     return "Exception : Grade out of range";
 }

@@ -6,7 +6,7 @@
 /*   By: hdelbecq <hdelbecq@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 16:32:26 by hdelbecq          #+#    #+#             */
-/*   Updated: 2025/07/16 22:25:47 by hdelbecq         ###   ########.fr       */
+/*   Updated: 2025/11/11 13:47:13 by hdelbecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ class Bureaucrat
 		class GradeTooHighException : public std::exception
 		{
 			public:
-				const char* what();
+				const char* what() const throw();
 		};
 
 		class GradeTooLowException : public std::exception
 		{
 			public:
-				const char* what();
+				const char* what() const throw();
 		};
 
 		

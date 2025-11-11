@@ -6,7 +6,7 @@
 /*   By: hdelbecq <hdelbecq@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 16:32:26 by hdelbecq          #+#    #+#             */
-/*   Updated: 2025/07/16 22:28:03 by hdelbecq         ###   ########.fr       */
+/*   Updated: 2025/11/11 13:53:28 by hdelbecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ class Form
 		int get_Grade() const;
 		int get_Grade_Sign() const;
 		int get_Grade_Execute() const;
-
+		bool get_Is_Signed() const;
+		
 		void be_signed(const Bureaucrat &bureaucrat);
 		
 		friend std::ostream &operator<<(std::ostream &os, const Form &Form);
@@ -41,13 +42,13 @@ class Form
 		class GradeTooHighException : public std::exception
 		{
 			public:
-				const char* what();
+				virtual const char* what() const throw();
 		};
 
 		class GradeTooLowException : public std::exception
 		{
 			public:
-				const char* what();
+				virtual const char* what() const throw();
 		};
 	
 };
