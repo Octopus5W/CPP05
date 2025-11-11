@@ -80,10 +80,18 @@ std::ostream &operator<<(std::ostream &os, const Form &Form)
 
 void Form::be_signed(const Bureaucrat &bureaucrat)
 {
-    if (bureaucrat.get_Grade() > grade_sign)
-        throw GradeTooLowException();
-    is_signed = true;
-    std::cout << bureaucrat.get_Name() << " sign " << name << std::endl;
+    if (is_signed)
+    {
+        std::cout << name << " is already signed." << std::endl;
+        return;
+    }
+    else
+    {
+        if (bureaucrat.get_Grade() > grade_sign)
+            throw GradeTooLowException();
+        is_signed = true;
+        std::cout << bureaucrat.get_Name() << " sign " << name << std::endl;
+    }
 }
 
 
