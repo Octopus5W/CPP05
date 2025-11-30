@@ -6,11 +6,12 @@
 /*   By: hdelbecq <hdelbecq@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 16:33:00 by hdelbecq          #+#    #+#             */
-/*   Updated: 2025/11/11 13:38:01 by hdelbecq         ###   ########.fr       */
+/*   Updated: 2025/11/30 12:38:42 by hdelbecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 Bureaucrat::Bureaucrat()
     : name("Default Bureaucrat"), grade(150)
@@ -66,6 +67,19 @@ void Bureaucrat::decrement_Grade()
         if (grade >= 150)
             throw GradeTooHighException();
         grade++;
+}
+
+void Bureaucrat::signForm(Form &form)
+{
+    try
+    {
+        form.beSigned(*this);
+        std::cout << name << " signed " << form.get_Name() << std::endl;
+    }
+    catch (std::exception &e)
+    {
+        std::cout << name << " couldn't sign " << form.get_Name() << " because " << e.what() << std::endl;
+    }
 }
 
 const char* Bureaucrat::GradeTooHighException::what() const throw()

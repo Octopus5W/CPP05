@@ -78,7 +78,7 @@ std::ostream &operator<<(std::ostream &os, const Form &Form)
     return os;
 }
 
-void Form::be_signed(const Bureaucrat &bureaucrat)
+void Form::beSigned(const Bureaucrat &bureaucrat)
 {
     if (is_signed)
     {
