@@ -6,7 +6,7 @@
 /*   By: hdelbecq <hdelbecq@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 16:33:00 by hdelbecq          #+#    #+#             */
-/*   Updated: 2025/07/16 22:25:58 by hdelbecq         ###   ########.fr       */
+/*   Updated: 2025/11/06 13:08:03 by hdelbecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,7 @@ void Bureaucrat::increment_Grade()
 {
         if (grade <= 1)
             throw GradeTooLowException();
-        else
-            grade--;
+        grade--;
 }
 
 void Bureaucrat::decrement_Grade()
@@ -68,14 +67,14 @@ void Bureaucrat::decrement_Grade()
         grade++;
 }
 
-const char* Bureaucrat::GradeTooHighException::what()
+const char* Bureaucrat::GradeTooHighException::what() const throw()
 {
-    return "Exception : Grade out of range";
+    return "Exception : Grade too high";
 }
 
-const char* Bureaucrat::GradeTooLowException::what()
+const char* Bureaucrat::GradeTooLowException::what() const throw()
 {
-    return "Exception : Grade out of range";
+    return "Exception : Grade too low";
 }
 
 std::ostream &operator<<(std::ostream &os, const Bureaucrat &bureaucrat)

@@ -6,7 +6,7 @@
 /*   By: hdelbecq <hdelbecq@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/13 16:40:56 by hdelbecq          #+#    #+#             */
-/*   Updated: 2025/07/16 22:27:18 by hdelbecq         ###   ########.fr       */
+/*   Updated: 2025/11/06 12:50:57 by hdelbecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,9 @@ int main ()
 {
 	Bureaucrat bureaucrat1("Alice", 150);
 	Bureaucrat bureaucrat2("Bob", 150);
-	Bureaucrat bureaucrat3("Annique", 150);
 	
 	std::cout << bureaucrat1;
 	std::cout << bureaucrat2;
-	std::cout << bureaucrat3;
 
 	try
 	{
