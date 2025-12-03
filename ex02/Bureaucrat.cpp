@@ -6,11 +6,12 @@
 /*   By: hdelbecq <hdelbecq@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 16:33:00 by hdelbecq          #+#    #+#             */
-/*   Updated: 2025/07/16 22:25:58 by hdelbecq         ###   ########.fr       */
+/*   Updated: 2025/12/03 12:13:04 by hdelbecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
+#include "AForm.hpp"
 
 Bureaucrat::Bureaucrat()
     : name("Default Bureaucrat"), grade(150)
@@ -68,12 +69,38 @@ void Bureaucrat::decrement_Grade()
         grade++;
 }
 
-const char* Bureaucrat::GradeTooHighException::what()
+void Bureaucrat::signForm(AForm &AForm)
+{
+    try
+    {
+        AForm.beSigned(*this);
+        std::cout << name << " signed " << AForm.get_Name() << std::endl;
+    }
+    catch (std::exception &e)
+    {
+        std::cout << name << " couldn't sign " << AForm.get_Name() << " because " << e.what() << std::endl;
+    }
+}
+
+void Bureaucrat::executeForm(AForm const & form)
+{
+    try
+    {
+        form.execute(*this);
+        std::cout << name << " executed " << form.get_Name() << std::endl;
+    }
+    catch (std::exception &e)
+    {
+        std::cout << name << " couldn't execute " << form.get_Name() << " because " << e.what() << std::endl;
+    }
+}
+
+const char* Bureaucrat::GradeTooHighException::what() const throw()
 {
     return "Exception : Grade out of range";
 }
 
-const char* Bureaucrat::GradeTooLowException::what()
+const char* Bureaucrat::GradeTooLowException::what() const throw()
 {
     return "Exception : Grade out of range";
 }

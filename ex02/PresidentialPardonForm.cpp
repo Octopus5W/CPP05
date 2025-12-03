@@ -12,52 +12,34 @@
 
 #include "PresidentialPardonForm.hpp"
 
+PresidentialPardonForm::PresidentialPardonForm(const std::string &target)
+    : AForm("PresidentialPardonForm", 25, 5), target(target)
+{
+}
+
 PresidentialPardonForm::~PresidentialPardonForm()
 {
 }
 
-std::string  PresidentialPardonForm::get_Name() const
+PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &other)
+    : AForm(other), target(other.target)
 {
-    return name;
+}
+PresidentialPardonForm &PresidentialPardonForm::operator=(const PresidentialPardonForm &other)
+{
+    if (this != &other)
+    {
+        AForm::operator=(other);
+        target = other.target;
+    }
+    return *this;
 }
 
-int  PresidentialPardonForm::get_Grade_Sign() const
+void PresidentialPardonForm::execute(Bureaucrat const &executor) const
 {
-    return grade_sign;
+    if (!get_Is_Signed())
+        throw AForm::NotSignedException();
+    if (executor.get_Grade() > get_Grade_Execute())
+        throw AForm::GradeTooLowException();
+    std::cout << target << " has been pardoned by Zaphod Beeblebrox." << std::endl;
 }
-
-int  PresidentialPardonForm::get_Grade_Execute() const
-{
-    return grade_execute;
-}
-
-const char*  PresidentialPardonForm::GradeTooHighException::what()
-{
-    return "Exception : Grade too high";
-}
-
-const char*  PresidentialPardonForm::GradeTooLowException::what()
-{
-    return "Exception : Grade too low";
-}
-
-std::ostream &operator<<(std::ostream &os, const  PresidentialPardonForm & PresidentialPardonForm)
-{
-    os <<  PresidentialPardonForm.get_Name() << ",  PresidentialPardonForm grade to execute " 
-    <<  PresidentialPardonForm.get_Grade_Execute() << ",  PresidentialPardonForm grade to sign " 
-    <<  PresidentialPardonForm.get_Grade_Sign() 
-    << ( PresidentialPardonForm.get_Grade_Sign() == 1 ?  ". Signed" : ". Not Signed") 
-    << std::endl;
-    return os;
-}
-
-void  PresidentialPardonForm::be_signed(const Bureaucrat &bureaucrat)
-{
-    if (bureaucrat.get_Grade() > grade_sign)
-        throw GradeTooLowException();
-    std::cout << bureaucrat.get_Name() << " signs " << name << std::endl;
-    is_signed = true;
-}
-
-
-

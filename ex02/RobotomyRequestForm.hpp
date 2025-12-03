@@ -15,37 +15,20 @@
 
 #include <iostream>
 #include "Bureaucrat.hpp"
+#include "AForm.hpp"
 
-class RobotomyRequestForm
+class RobotomyRequestForm : public AForm
 {
 	private:
-		const std::string name;
-		bool is_signed;
-		const int grade_sign;
-		const int grade_execute;
+		std::string target;
 	public:
-		virtual ~RobotomyRequestForm();
-		
-		std::string get_Name() const;
-		int get_Grade() const;
-		int get_Grade_Sign() const;
-		int get_Grade_Execute() const;
+		RobotomyRequestForm(const std::string &target);
+		RobotomyRequestForm(const RobotomyRequestForm &other);
+		RobotomyRequestForm &operator=(const RobotomyRequestForm &other);
+		~RobotomyRequestForm();
 
-		void be_signed(const Bureaucrat &bureaucrat);
-		
-		friend std::ostream &operator<<(std::ostream &os, const RobotomyRequestForm &Form);
+		void execute(Bureaucrat const &executor) const;
 
-		class GradeTooHighException : public std::exception
-		{
-			public:
-				const char* what();
-		};
-
-		class GradeTooLowException : public std::exception
-		{
-			public:
-				const char* what();
-		};
 	
 };
 

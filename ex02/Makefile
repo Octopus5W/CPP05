@@ -6,14 +6,14 @@
 #    By: hdelbecq <hdelbecq@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/11 16:20:50 by hdelbecq          #+#    #+#              #
-#    Updated: 2025/07/16 21:21:01 by hdelbecq         ###   ########.fr        #
+#    Updated: 2025/12/03 12:20:28 by hdelbecq         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = maggots
+NAME = forms
 C++ = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
-SRC = main.cpp Bureaucrat.cpp Form.cpp
+SRC = main.cpp Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)

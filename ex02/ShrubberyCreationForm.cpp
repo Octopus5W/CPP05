@@ -12,52 +12,57 @@
 
 #include "ShrubberyCreationForm.hpp"
 
- ShrubberyCreationForm::~ShrubberyCreationForm()
+ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target)
+    : AForm("ShrubberyCreationForm", 145, 137), target(target)
 {
 }
 
-std::string  ShrubberyCreationForm::get_Name() const
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &other)
+    : AForm(other), target(other.target)
 {
-    return name;
+}
+ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCreationForm &other)
+{
+    if (this != &other)
+    {
+        AForm::operator=(other);
+        target = other.target;
+    }
+    return *this;
 }
 
-int  ShrubberyCreationForm::get_Grade_Sign() const
+
+ShrubberyCreationForm::~ShrubberyCreationForm()
 {
-    return grade_sign;
 }
 
-int  ShrubberyCreationForm::get_Grade_Execute() const
+void ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 {
-    return grade_execute;
+    if (!get_Is_Signed())
+        throw AForm::NotSignedException();
+    if (executor.get_Grade() > get_Grade_Execute())
+        throw AForm::GradeTooLowException();
+    std::ofstream outfile(target + "_shrubbery");
+    if (!outfile)
+    {
+        std::cerr << "Error creating file: " << target + "_shrubbery" << std::endl;
+        return;
+    }
+    outfile << "       _-_\n"
+               "    /~~   ~~\\\n"
+               " /~~         ~~\\\n"
+               "{               }\n"
+               " \\  _-     -_  /\n"
+               "   ~  \\\\ //  ~\n"
+               "_- -   | | _- _\n"
+               "  _ -  | |   -_\n"
+               "      // \\\\\n";
+    outfile.close();
 }
 
-const char*  ShrubberyCreationForm::GradeTooHighException::what()
-{
-    return "Exception : Grade too high";
-}
 
-const char*  ShrubberyCreationForm::GradeTooLowException::what()
-{
-    return "Exception : Grade too low";
-}
 
-std::ostream &operator<<(std::ostream &os, const  ShrubberyCreationForm & ShrubberyCreationForm)
-{
-    os <<  ShrubberyCreationForm.get_Name() << ",  ShrubberyCreationForm grade to execute " 
-    <<  ShrubberyCreationForm.get_Grade_Execute() << ",  ShrubberyCreationForm grade to sign " 
-    <<  ShrubberyCreationForm.get_Grade_Sign() 
-    << ( ShrubberyCreationForm.get_Grade_Sign() == 1 ?  ". Signed" : ". Not Signed") 
-    << std::endl;
-    return os;
-}
 
-void  ShrubberyCreationForm::be_signed(const Bureaucrat &bureaucrat)
-{
-    if (bureaucrat.get_Grade() > grade_sign)
-        throw GradeTooLowException();
-    std::cout << bureaucrat.get_Name() << " signs " << name << std::endl;
-    is_signed = true;
-}
 
 
 

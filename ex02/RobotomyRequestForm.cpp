@@ -12,51 +12,43 @@
 
 #include "RobotomyRequestForm.hpp"
 
+RobotomyRequestForm::RobotomyRequestForm(const std::string &target)
+    : AForm("RobotomyRequestForm", 72, 45), target(target)
+{
+}
+
+RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &other)
+    : AForm(other), target(other.target)
+{
+}
+
+RobotomyRequestForm &RobotomyRequestForm::operator=(const RobotomyRequestForm &other)
+{
+    if (this != &other)
+    {
+        AForm::operator=(other);
+        target = other.target;
+    }
+    return *this;
+}
+
+
 RobotomyRequestForm::~RobotomyRequestForm()
 {
 }
 
-std::string  RobotomyRequestForm::get_Name() const
-{
-    return name;
-}
 
-int  RobotomyRequestForm::get_Grade_Sign() const
+void RobotomyRequestForm::execute(Bureaucrat const &executor) const
 {
-    return grade_sign;
-}
-
-int  RobotomyRequestForm::get_Grade_Execute() const
-{
-    return grade_execute;
-}
-
-const char*  RobotomyRequestForm::GradeTooHighException::what()
-{
-    return "Exception : Grade too high";
-}
-
-const char*  RobotomyRequestForm::GradeTooLowException::what()
-{
-    return "Exception : Grade too low";
-}
-
-std::ostream &operator<<(std::ostream &os, const  RobotomyRequestForm & RobotomyRequestForm)
-{
-    os <<  RobotomyRequestForm.get_Name() << ",  RobotomyRequestForm grade to execute " 
-    <<  RobotomyRequestForm.get_Grade_Execute() << ",  RobotomyRequestForm grade to sign " 
-    <<  RobotomyRequestForm.get_Grade_Sign() 
-    << ( RobotomyRequestForm.get_Grade_Sign() == 1 ?  ". Signed" : ". Not Signed") 
-    << std::endl;
-    return os;
-}
-
-void  RobotomyRequestForm::be_signed(const Bureaucrat &bureaucrat)
-{
-    if (bureaucrat.get_Grade() > grade_sign)
-        throw GradeTooLowException();
-    std::cout << bureaucrat.get_Name() << " signs " << name << std::endl;
-    is_signed = true;
+    if (!get_Is_Signed())
+        throw AForm::GradeTooLowException();
+    if (executor.get_Grade() > get_Grade_Execute())
+        throw AForm::GradeTooLowException();
+    std::cout << "*****drilling*****noises****" << std::endl;
+    if (rand() % 2)
+        std::cout << target << " has been robotomized successfully." << std::endl;
+    else
+        std::cout << "The robotomy on " << target << " has failed." << std::endl;
 }
 
 

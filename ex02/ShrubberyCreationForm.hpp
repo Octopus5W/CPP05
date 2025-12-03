@@ -15,37 +15,20 @@
 
 #include <iostream>
 #include "Bureaucrat.hpp"
+#include "AForm.hpp"
+#include <fstream>
 
-class ShrubberyCreationForm
+class ShrubberyCreationForm : public AForm
 {
 	private:
-		const std::string name;
-		bool is_signed;
-		const int grade_sign;
-		const int grade_execute;
+		std::string target;
 	public:
-		virtual ~ShrubberyCreationForm();
-		
-		std::string get_Name() const;
-		int get_Grade() const;
-		int get_Grade_Sign() const;
-		int get_Grade_Execute() const;
+		ShrubberyCreationForm(const std::string &target);
+		ShrubberyCreationForm(const ShrubberyCreationForm &other);
+		ShrubberyCreationForm &operator=(const ShrubberyCreationForm &other);
+		~ShrubberyCreationForm();
 
-		void be_signed(const Bureaucrat &bureaucrat);
-		
-		friend std::ostream &operator<<(std::ostream &os, const ShrubberyCreationForm &Form);
-
-		class GradeTooHighException : public std::exception
-		{
-			public:
-				const char* what();
-		};
-
-		class GradeTooLowException : public std::exception
-		{
-			public:
-				const char* what();
-		};
+		void execute(Bureaucrat const &executor) const;
 	
 };
 
